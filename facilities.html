@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facilities – KP International School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { DEFAULT: '#1e3a8a', light: '#2d4fa3', dark: '#162d6e' },
+            gold: { DEFAULT: '#d97706', light: '#f59e0b', dark: '#b45309' }
+          },
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .page-hero { background: linear-gradient(135deg, #1e3a8a 0%, #162d6e 60%, #1e3a8a 100%); }
+    .facility-card { transition: all 0.35s ease; }
+    .facility-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(30,58,138,0.15); }
+    .section-divider { height: 4px; background: linear-gradient(90deg, #1e3a8a, #d97706, #1e3a8a); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Nav -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 lg:h-20">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-navy rounded-full flex items-center justify-center">
+          <span class="text-white font-bold text-sm">KP</span>
+        </div>
+        <div>
+          <div class="font-bold text-navy text-sm lg:text-base">KP International School</div>
+          <div class="text-gold text-xs hidden sm:block">Empowering Minds, Building Futures</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-6">
+        <a href="index.html" class="font-medium text-gray-600 text-sm hover:text-gold transition-colors">Home</a>
+        <a href="about.html" class="font-medium text-gray-600 text-sm hover:text-gold transition-colors">About</a>
+        <a href="academics.html" class="font-medium text-gray-600 text-sm hover:text-gold transition-colors">Academics</a>
+        <a href="facilities.html" class="font-medium text-navy border-b-2 border-gold text-sm">Facilities</a>
+        <a href="gallery.html" class="font-medium text-gray-600 text-sm hover:text-gold transition-colors">Gallery</a>
+        <a href="news.html" class="font-medium text-gray-600 text-sm hover:text-gold transition-colors">News</a>
+        <a href="contact.html" class="bg-navy text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-navy-light transition-colors">Contact Us</a>
+      </div>
+      <button id="menuBtn" class="lg:hidden p-2 rounded-md text-navy">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-2">
+    <a href="index.html" class="block py-2 text-gray-600">Home</a>
+    <a href="about.html" class="block py-2 text-gray-600">About Us</a>
+    <a href="academics.html" class="block py-2 text-gray-600">Academics</a>
+    <a href="facilities.html" class="block py-2 text-navy font-medium">Facilities</a>
+    <a href="gallery.html" class="block py-2 text-gray-600">Gallery</a>
+    <a href="news.html" class="block py-2 text-gray-600">News & Events</a>
+    <a href="contact.html" class="block py-2 text-gold font-semibold">Contact Us</a>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero text-white py-16 lg:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="inline-block bg-gold/20 text-gold text-sm font-semibold px-4 py-1.5 rounded-full mb-4">Our Campus</span>
+    <h1 class="text-4xl lg:text-5xl font-bold mb-4">School Facilities</h1>
+    <p class="text-blue-200 text-lg max-w-2xl mx-auto">Modern infrastructure designed to support every aspect of student learning and development</p>
+    <div class="flex items-center justify-center gap-2 mt-6 text-sm text-blue-300">
+      <a href="index.html" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-white">Facilities</span>
+    </div>
+  </div>
+</section>
+
+<!-- Facilities Grid -->
+<section class="py-16 lg:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14">
+      <span class="text-gold font-semibold text-sm uppercase tracking-widest">Infrastructure</span>
+      <h2 class="text-3xl font-bold text-navy mt-2">Everything a Student Needs</h2>
+      <div class="section-divider w-20 mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Classrooms -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-navy/5 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🏫</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">Modern Classrooms</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">Spacious, well-ventilated classrooms equipped with proper seating, blackboards, and learning materials for every grade level from Nursery to Class 10.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Separate rooms per class/section</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Good natural lighting</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Student-friendly furniture</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Smart Classes -->
+      <div class="facility-card bg-navy rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white/10 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🖥️</div>
+        </div>
+        <div class="p-6 text-white">
+          <h3 class="text-xl font-bold text-white mb-2">Smart Classrooms</h3>
+          <p class="text-blue-200 text-sm leading-relaxed mb-4">Technology-enabled learning with smart boards and digital content that makes lessons more visual, interactive, and engaging for students.</p>
+          <ul class="text-sm text-blue-200 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Interactive smart boards</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Digital learning content</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Audio-visual teaching aids</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Library -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-gold/5 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">📖</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">School Library</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">A well-stocked library with a diverse collection of textbooks, reference books, storybooks, encyclopaedias, and magazines to encourage a love for reading.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Wide range of books</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Quiet reading environment</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Reference & competitive books</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Playground -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-green-50 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🏏</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">Sports & Playground</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">A large, open playground where students engage in physical education, team sports, and recreational activities to promote health and team spirit.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Cricket, Football, Volleyball</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Athletics track space</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Pre-primary play area</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Science Labs -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-blue-50 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🔬</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">Science Laboratory</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">Hands-on laboratory sessions bring science to life. Students perform experiments aligned with the RBSE syllabus for Physics, Chemistry, and Biology.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Equipped science lab</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>RBSE practical curriculum</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Safety-first environment</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Computer Lab -->
+      <div class="facility-card bg-gold rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white/20 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">💻</div>
+        </div>
+        <div class="p-6 text-white">
+          <h3 class="text-xl font-bold text-white mb-2">Computer Lab</h3>
+          <p class="text-amber-100 text-sm leading-relaxed mb-4">A functional computer lab provides students with digital literacy skills including basic computing, internet awareness, and software fundamentals.</p>
+          <ul class="text-sm text-amber-100 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-white rounded-full"></div>Basic computer education</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-white rounded-full"></div>Internet & digital tools</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-white rounded-full"></div>Typing & MS Office skills</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sanitation -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-cyan-50 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🚿</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">Sanitation & Hygiene</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">Separate and clean sanitation facilities for boys and girls are maintained with regular upkeep to ensure a healthy and hygienic school environment.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Separate facilities for boys & girls</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Regular cleaning & maintenance</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Clean drinking water supply</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Assembly Ground -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-amber-50 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🎤</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">Assembly Ground</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">A dedicated space for daily morning assemblies, cultural events, speeches, and school-wide gatherings that build community and school spirit.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Daily morning assembly</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Cultural performances</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Prize distribution & events</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Safe Environment -->
+      <div class="facility-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="bg-red-50 p-8 flex items-center justify-center h-44">
+          <div class="text-7xl">🛡️</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-navy mb-2">Safe & Secure Campus</h3>
+          <p class="text-gray-500 text-sm leading-relaxed mb-4">The safety of every student is our top priority. The school campus is fully secured with responsible monitoring throughout school hours.</p>
+          <ul class="text-sm text-gray-500 space-y-1">
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Secured campus boundary</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>Staff supervision during hours</li>
+            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-gold rounded-full"></div>First-aid availability</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+            <span class="text-white font-bold text-sm">KP</span>
+          </div>
+          <div>
+            <div class="font-bold text-white">KP International School</div>
+            <div class="text-gold text-xs">Empowering Minds, Building Futures</div>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed">A premier English-medium co-educational school affiliated with RBSE, serving students from Nursery to Class 10 in Morija Village, Chomu, Jaipur since 2015.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="about.html" class="hover:text-gold transition-colors">About Us</a></li>
+          <li><a href="academics.html" class="hover:text-gold transition-colors">Academics</a></li>
+          <li><a href="facilities.html" class="hover:text-gold transition-colors">Facilities</a></li>
+          <li><a href="gallery.html" class="hover:text-gold transition-colors">Gallery</a></li>
+          <li><a href="news.html" class="hover:text-gold transition-colors">News & Events</a></li>
+          <li><a href="contact.html" class="hover:text-gold transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-4">Contact Info</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Karni Vihar, Chitwari Road, Morija Village, Chomu Tehsil, Jaipur – 303805
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <a href="tel:+919414850460" class="hover:text-gold transition-colors">+91 94148 50460</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <a href="mailto:kpinternational2015@gmail.com" class="hover:text-gold transition-colors">kpinternational2015@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
+      © 2025 KP International School, Morija, Chomu, Jaipur. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+</script>
+</body>
+</html>

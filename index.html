@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KP International School – Empowering Minds, Building Futures</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { DEFAULT: '#1e3a8a', light: '#2d4fa3', dark: '#162d6e' },
+            gold: { DEFAULT: '#d97706', light: '#f59e0b', dark: '#b45309' }
+          },
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .hero-bg {
+      background: linear-gradient(135deg, #1e3a8a 0%, #162d6e 40%, #1e3a8a 70%, #0f2057 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(30,58,138,0.15); }
+    .nav-link { transition: color 0.2s ease; }
+    .nav-link:hover { color: #d97706; }
+    .btn-primary { transition: all 0.3s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(217,119,6,0.4); }
+    .floating { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+    .section-divider { height: 4px; background: linear-gradient(90deg, #1e3a8a, #d97706, #1e3a8a); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Navigation -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 lg:h-20">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 lg:w-12 lg:h-12 bg-navy rounded-full flex items-center justify-center flex-shrink-0">
+          <span class="text-white font-bold text-sm lg:text-base">KP</span>
+        </div>
+        <div>
+          <div class="font-bold text-navy text-sm lg:text-base leading-tight">KP International School</div>
+          <div class="text-gold text-xs hidden sm:block">Empowering Minds, Building Futures</div>
+        </div>
+      </div>
+      <div class="hidden lg:flex items-center gap-6">
+        <a href="index.html" class="nav-link font-medium text-navy border-b-2 border-gold text-sm">Home</a>
+        <a href="about.html" class="nav-link font-medium text-gray-600 text-sm">About</a>
+        <a href="academics.html" class="nav-link font-medium text-gray-600 text-sm">Academics</a>
+        <a href="facilities.html" class="nav-link font-medium text-gray-600 text-sm">Facilities</a>
+        <a href="gallery.html" class="nav-link font-medium text-gray-600 text-sm">Gallery</a>
+        <a href="news.html" class="nav-link font-medium text-gray-600 text-sm">News</a>
+        <a href="contact.html" class="bg-navy text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-navy-light transition-colors">Contact Us</a>
+      </div>
+      <button id="menuBtn" class="lg:hidden p-2 rounded-md text-navy">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-2">
+    <a href="index.html" class="block py-2 text-navy font-medium">Home</a>
+    <a href="about.html" class="block py-2 text-gray-600">About Us</a>
+    <a href="academics.html" class="block py-2 text-gray-600">Academics</a>
+    <a href="facilities.html" class="block py-2 text-gray-600">Facilities</a>
+    <a href="gallery.html" class="block py-2 text-gray-600">Gallery</a>
+    <a href="news.html" class="block py-2 text-gray-600">News & Events</a>
+    <a href="contact.html" class="block py-2 text-gold font-semibold">Contact Us</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-bg text-white py-20 lg:py-32 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
+          <div class="w-2 h-2 bg-gold rounded-full"></div>
+          <span class="text-sm font-medium">RBSE Affiliated • Est. 2015</span>
+        </div>
+        <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-4">
+          KP International<br /><span class="text-gold">School</span>
+        </h1>
+        <p class="text-xl lg:text-2xl text-blue-200 font-light mb-6 italic">"Empowering Minds, Building Futures"</p>
+        <p class="text-blue-100 text-base lg:text-lg mb-8 leading-relaxed">
+          A premier English-medium co-educational institution in Morija Village, Chomu, Jaipur — nurturing young minds from Nursery to Class 10 with quality education and holistic development.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="about.html" class="btn-primary bg-gold text-white px-6 py-3 rounded-full font-semibold text-sm">Discover Our School</a>
+          <a href="contact.html" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white hover:text-navy transition-colors">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hidden lg:flex justify-center">
+        <div class="floating relative">
+          <div class="w-72 h-72 bg-white/10 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center p-8 border border-white/20">
+            <div class="w-24 h-24 bg-gold/20 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-12 h-12 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-white">10+</div>
+              <div class="text-blue-200 text-sm">Years of Excellence</div>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-3 w-full">
+              <div class="bg-white/10 rounded-xl p-3 text-center">
+                <div class="font-bold text-lg">11</div>
+                <div class="text-xs text-blue-200">Classes</div>
+              </div>
+              <div class="bg-white/10 rounded-xl p-3 text-center">
+                <div class="font-bold text-lg">RBSE</div>
+                <div class="text-xs text-blue-200">Board</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-0 left-0 right-0 h-16 bg-gray-50" style="clip-path: ellipse(55% 100% at 50% 100%);"></div>
+</section>
+
+<!-- Quick Stats -->
+<section class="bg-white py-8 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="text-center">
+        <div class="text-3xl font-bold text-navy">2015</div>
+        <div class="text-gray-500 text-sm">Established</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-navy">Nur–10</div>
+        <div class="text-gray-500 text-sm">Classes Offered</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-navy">RBSE</div>
+        <div class="text-gray-500 text-sm">Board Affiliated</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-navy">English</div>
+        <div class="text-gray-500 text-sm">Medium of Instruction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Welcome Section -->
+<section class="py-16 lg:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="text-gold font-semibold text-sm uppercase tracking-widest">Welcome to KPIS</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy mt-2 mb-6">A Place Where Every Child <span class="text-gold">Thrives</span></h2>
+        <div class="section-divider w-20 mb-6"></div>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          KP International School (KPIS) has been a cornerstone of quality education in the Chomu region since 2015. Situated amidst the serene landscape of Morija Village, just 4 km from Chomu town and 35 km north of Jaipur city, our school offers a nurturing environment where every student can reach their full potential.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-6">
+          As an English-medium, co-educational institution affiliated with the Rajasthan Board of Secondary Education (RBSE), we blend traditional values with modern pedagogy to prepare students for the challenges of tomorrow.
+        </p>
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-navy text-sm">Experienced Faculty</div>
+              <div class="text-gray-500 text-xs">Dedicated & qualified teachers</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-navy text-sm">Modern Facilities</div>
+              <div class="text-gray-500 text-xs">Smart classes & library</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-navy text-sm">Holistic Growth</div>
+              <div class="text-gray-500 text-xs">Sports, arts & co-curricular</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+              <div class="font-semibold text-navy text-sm">Safe Environment</div>
+              <div class="text-gray-500 text-xs">Secure & caring campus</div>
+            </div>
+          </div>
+        </div>
+        <a href="about.html" class="inline-flex items-center gap-2 bg-navy text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-navy-light transition-colors">
+          Read More About Us
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-navy rounded-2xl p-6 text-white">
+          <div class="text-5xl mb-3">📚</div>
+          <h3 class="font-bold text-lg mb-2">Academic Excellence</h3>
+          <p class="text-blue-200 text-sm">RBSE curriculum with focus on conceptual understanding</p>
+        </div>
+        <div class="bg-gold rounded-2xl p-6 text-white mt-8">
+          <div class="text-5xl mb-3">🌱</div>
+          <h3 class="font-bold text-lg mb-2">Holistic Development</h3>
+          <p class="text-amber-100 text-sm">Nurturing mind, body and character equally</p>
+        </div>
+        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+          <div class="text-5xl mb-3">🤝</div>
+          <h3 class="font-bold text-lg mb-2 text-navy">Community Values</h3>
+          <p class="text-gray-500 text-sm">Rooted in local values, ready for global challenges</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 mt-8">
+          <div class="text-5xl mb-3">🏆</div>
+          <h3 class="font-bold text-lg mb-2 text-navy">Proven Results</h3>
+          <p class="text-gray-500 text-sm">Consistent board results since 2015</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick Links -->
+<section class="bg-navy py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-white mb-2">Explore Our School</h2>
+      <p class="text-blue-200">Everything you need to know about KPIS</p>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      <a href="about.html" class="card-hover bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white text-center">
+        <div class="text-4xl mb-3">🏫</div>
+        <h3 class="font-bold text-lg">About Us</h3>
+        <p class="text-blue-200 text-sm mt-1">Our story & mission</p>
+      </a>
+      <a href="academics.html" class="card-hover bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white text-center">
+        <div class="text-4xl mb-3">📖</div>
+        <h3 class="font-bold text-lg">Academics</h3>
+        <p class="text-blue-200 text-sm mt-1">Curriculum & classes</p>
+      </a>
+      <a href="facilities.html" class="card-hover bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white text-center">
+        <div class="text-4xl mb-3">🏗️</div>
+        <h3 class="font-bold text-lg">Facilities</h3>
+        <p class="text-blue-200 text-sm mt-1">Infrastructure & amenities</p>
+      </a>
+      <a href="gallery.html" class="card-hover bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white text-center">
+        <div class="text-4xl mb-3">📸</div>
+        <h3 class="font-bold text-lg">Gallery</h3>
+        <p class="text-blue-200 text-sm mt-1">School life in photos</p>
+      </a>
+      <a href="news.html" class="card-hover bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white text-center">
+        <div class="text-4xl mb-3">📰</div>
+        <h3 class="font-bold text-lg">News & Events</h3>
+        <p class="text-blue-200 text-sm mt-1">Latest announcements</p>
+      </a>
+      <a href="contact.html" class="card-hover bg-gold/20 border border-gold/40 rounded-2xl p-6 text-white text-center">
+        <div class="text-4xl mb-3">📞</div>
+        <h3 class="font-bold text-lg text-gold">Contact Us</h3>
+        <p class="text-blue-200 text-sm mt-1">Reach out anytime</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- News Teaser -->
+<section class="py-16 lg:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-10">
+      <div>
+        <span class="text-gold font-semibold text-sm uppercase tracking-widest">Latest Updates</span>
+        <h2 class="text-3xl font-bold text-navy mt-1">News & Events</h2>
+      </div>
+      <a href="news.html" class="text-navy font-semibold text-sm hover:text-gold transition-colors flex items-center gap-1">
+        View All <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card-hover bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
+        <div class="bg-navy/5 h-3 w-full"></div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full">Announcement</span>
+            <span class="text-gray-400 text-xs">Jan 2025</span>
+          </div>
+          <h3 class="font-bold text-navy mb-2">Annual Sports Day 2025</h3>
+          <p class="text-gray-500 text-sm">Students showcased their athletic talents at our grand Annual Sports Day. Prizes were awarded across multiple categories.</p>
+        </div>
+      </div>
+      <div class="card-hover bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
+        <div class="bg-gold/20 h-3 w-full"></div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-navy/10 text-navy text-xs font-semibold px-3 py-1 rounded-full">Academic</span>
+            <span class="text-gray-400 text-xs">Dec 2024</span>
+          </div>
+          <h3 class="font-bold text-navy mb-2">Board Exam Preparation Drive</h3>
+          <p class="text-gray-500 text-sm">Class 10 students are receiving intensive coaching and mock tests ahead of the RBSE board examinations.</p>
+        </div>
+      </div>
+      <div class="card-hover bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
+        <div class="bg-blue-100 h-3 w-full"></div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Event</span>
+            <span class="text-gray-400 text-xs">Nov 2024</span>
+          </div>
+          <h3 class="font-bold text-navy mb-2">Annual Cultural Festival</h3>
+          <p class="text-gray-500 text-sm">Students celebrated India's rich heritage with dance, drama, and music performances at our Annual Cultural Festival.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Teaser -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <span class="text-gold font-semibold text-sm uppercase tracking-widest">School Life</span>
+      <h2 class="text-3xl font-bold text-navy mt-1">A Glimpse of KPIS</h2>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="rounded-xl overflow-hidden bg-navy/10 h-40 lg:h-52 flex items-center justify-center text-navy/30">
+        <div class="text-center"><div class="text-4xl">📸</div><div class="text-xs mt-1">Campus</div></div>
+      </div>
+      <div class="rounded-xl overflow-hidden bg-gold/10 h-40 lg:h-52 flex items-center justify-center text-gold/40 row-span-1">
+        <div class="text-center"><div class="text-4xl">📸</div><div class="text-xs mt-1">Classroom</div></div>
+      </div>
+      <div class="rounded-xl overflow-hidden bg-blue-100 h-40 lg:h-52 flex items-center justify-center text-blue-300">
+        <div class="text-center"><div class="text-4xl">📸</div><div class="text-xs mt-1">Sports</div></div>
+      </div>
+      <div class="rounded-xl overflow-hidden bg-amber-50 h-40 lg:h-52 flex items-center justify-center text-amber-300">
+        <div class="text-center"><div class="text-4xl">📸</div><div class="text-xs mt-1">Events</div></div>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <a href="gallery.html" class="inline-flex items-center gap-2 bg-navy text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-navy-light transition-colors">
+        View Full Gallery
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+            <span class="text-white font-bold text-sm">KP</span>
+          </div>
+          <div>
+            <div class="font-bold text-white">KP International School</div>
+            <div class="text-gold text-xs">Empowering Minds, Building Futures</div>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+          A premier English-medium co-educational school affiliated with RBSE, serving students from Nursery to Class 10 in Morija Village, Chomu, Jaipur since 2015.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="about.html" class="hover:text-gold transition-colors">About Us</a></li>
+          <li><a href="academics.html" class="hover:text-gold transition-colors">Academics</a></li>
+          <li><a href="facilities.html" class="hover:text-gold transition-colors">Facilities</a></li>
+          <li><a href="gallery.html" class="hover:text-gold transition-colors">Gallery</a></li>
+          <li><a href="news.html" class="hover:text-gold transition-colors">News & Events</a></li>
+          <li><a href="contact.html" class="hover:text-gold transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-4">Contact Info</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Karni Vihar, Chitwari Road, Morija Village, Chomu Tehsil, Jaipur – 303805
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <a href="tel:+919414850460" class="hover:text-gold transition-colors">+91 94148 50460</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <a href="mailto:kpinternational2015@gmail.com" class="hover:text-gold transition-colors">kpinternational2015@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
+      © 2025 KP International School, Morija, Chomu, Jaipur. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+</script>
+</body>
+</html>
