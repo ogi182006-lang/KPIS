@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – KP International School</title>
+</head>
+<body>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+
+  <script src="https://unpkg.com/decap-cms@3.1.2/dist/decap-cms.js"></script>
+
+  <script>
+    CMS.init({
+      config: {
+        backend: {
+          name: 'github',
+          repo: 'ogi182006/KPIS',
+          branch: 'main',
+          base_url: 'https://kpis-eight.vercel.app',
+          auth_endpoint: 'api/auth'
+        },
+        media_folder: 'uploads',
+        public_folder: '/uploads',
+        collections: [
+          {
+            name: 'news',
+            label: '📰 News & Events',
+            folder: '_data/news',
+            create: true,
+            slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+            fields: [
+              { label: 'Title', name: 'title', widget: 'string' },
+              { label: 'Date', name: 'date', widget: 'datetime' },
+              {
+                label: 'Category', name: 'category', widget: 'select',
+                options: ['Announcement', 'Academic', 'Sports', 'Cultural Event', 'General'],
+                default: 'Announcement'
+              },
+              { label: 'Short Summary', name: 'summary', widget: 'text' },
+              { label: 'Featured Image', name: 'image', widget: 'image', required: false },
+              { label: 'Full Content', name: 'body', widget: 'markdown' },
+              { label: 'Published', name: 'published', widget: 'boolean', default: true }
+            ]
+          },
+          {
+            name: 'gallery',
+            label: '📸 Photo Gallery',
+            folder: '_data/gallery',
+            create: true,
+            slug: '{{slug}}',
+            fields: [
+              { label: 'Photo Title', name: 'title', widget: 'string' },
+              {
+                label: 'Category', name: 'category', widget: 'select',
+                options: ['Campus', 'Events', 'Sports', 'Academics', 'Other'],
+                default: 'Events'
+              },
+              { label: 'Upload Photo', name: 'image', widget: 'image' },
+              { label: 'Description', name: 'description', widget: 'text', required: false },
+              { label: 'Show on Homepage', name: 'featured', widget: 'boolean', default: false },
+              { label: 'Visible', name: 'published', widget: 'boolean', default: true }
+            ]
+          },
+          {
+            name: 'pages',
+            label: '📝 Edit Pages',
+            files: [
+              {
+                name: 'contact',
+                label: '📞 Contact Details',
+                file: '_data/contact.json',
+                fields: [
+                  { label: 'Phone Number', name: 'phone', widget: 'string', default: '+91 94148 50460' },
+                  { label: 'Email', name: 'email', widget: 'string', default: 'kpinternational2015@gmail.com' },
+                  { label: 'Address', name: 'address', widget: 'text' },
+                  { label: 'School Hours', name: 'school_hours', widget: 'string' },
+                  { label: 'Office Hours', name: 'office_hours', widget: 'string' }
+                ]
+              },
+              {
+                name: 'home',
+                label: '🏠 Home Page Text',
+                file: '_data/home.json',
+                fields: [
+                  { label: 'Hero Tagline', name: 'tagline', widget: 'string' },
+                  { label: 'Welcome Text', name: 'welcome_text', widget: 'text' },
+                  { label: 'Announcement Banner', name: 'announcement', widget: 'string', required: false }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
+</body>
+</html>
