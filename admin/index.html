@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel – KP International School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f0f4ff; color: #1e3a8a; min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3a8a 0%, #162d6e 100%);
+    }
+    .login-box {
+      background: white; border-radius: 20px; padding: 40px 36px;
+      width: 90%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-logo {
+      width: 64px; height: 64px; background: #1e3a8a; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-weight: 700; color: white; font-size: 20px;
+    }
+    .login-box h2 { font-size: 1.3rem; color: #1e3a8a; margin-bottom: 4px; }
+    .login-box p { color: #888; font-size: 0.8rem; margin-bottom: 24px; }
+    .login-box input {
+      width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb;
+      border-radius: 10px; font-size: 0.95rem; font-family: 'Poppins', sans-serif;
+      margin-bottom: 12px; outline: none; transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: #1e3a8a; }
+    .login-box button {
+      width: 100%; padding: 13px; background: #1e3a8a; color: white;
+      border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s;
+    }
+    .login-box button:hover { background: #162d6e; }
+    .login-error { color: #dc2626; font-size: 0.8rem; margin-top: 8px; display: none; }
+
+    /* ── MAIN ADMIN ── */
+    #adminPanel { display: none; }
+    .topbar {
+      background: #1e3a8a; color: white; padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-logo {
+      width: 36px; height: 36px; background: #d97706; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 12px;
+    }
+    .topbar h1 { font-size: 1rem; font-weight: 600; }
+    .topbar-sub { font-size: 0.7rem; color: #93c5fd; }
+    .logout-btn {
+      background: rgba(255,255,255,0.15); border: none; color: white;
+      padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;
+      font-family: 'Poppins', sans-serif; transition: background 0.2s;
+    }
+    .logout-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .admin-body { display: flex; min-height: calc(100vh - 64px); }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px; background: white; border-right: 1px solid #e5e7eb;
+      padding: 20px 0; flex-shrink: 0;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px; padding: 12px 20px;
+      cursor: pointer; font-size: 0.88rem; font-weight: 500; color: #555;
+      transition: all 0.2s; border-left: 3px solid transparent;
+    }
+    .sidebar-item:hover { background: #f0f4ff; color: #1e3a8a; }
+    .sidebar-item.active { background: #f0f4ff; color: #1e3a8a; border-left-color: #d97706; font-weight: 600; }
+    .sidebar-item span.icon { font-size: 1.1rem; }
+    .sidebar-divider { height: 1px; background: #e5e7eb; margin: 8px 16px; }
+
+    /* CONTENT */
+    .content { flex: 1; padding: 24px; overflow-y: auto; }
+
+    /* CARDS */
+    .section { display: none; }
+    .section.active { display: block; }
+    .section-title { font-size: 1.4rem; font-weight: 700; color: #1e3a8a; margin-bottom: 4px; }
+    .section-sub { color: #888; font-size: 0.82rem; margin-bottom: 24px; }
+
+    /* FORM */
+    .form-card {
+      background: white; border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 12px rgba(30,58,138,0.08); margin-bottom: 20px;
+      border: 1px solid #e5e7eb;
+    }
+    .form-card h3 { font-size: 1rem; color: #1e3a8a; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #f0f4ff; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: #374151; margin-bottom: 6px; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 10px 14px; border: 2px solid #e5e7eb;
+      border-radius: 10px; font-size: 0.88rem; font-family: 'Poppins', sans-serif;
+      outline: none; transition: border-color 0.2s; background: #fafafa;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: #1e3a8a; background: white; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* UPLOAD AREA */
+    .upload-area {
+      border: 2px dashed #c7d2fe; border-radius: 12px; padding: 32px 20px;
+      text-align: center; cursor: pointer; transition: all 0.2s; background: #fafbff;
+    }
+    .upload-area:hover, .upload-area.drag-over { border-color: #1e3a8a; background: #f0f4ff; }
+    .upload-area .upload-icon { font-size: 2.5rem; margin-bottom: 8px; }
+    .upload-area p { color: #6b7280; font-size: 0.85rem; }
+    .upload-area strong { color: #1e3a8a; }
+    .upload-preview { margin-top: 12px; display: none; }
+    .upload-preview img { max-width: 100%; max-height: 200px; border-radius: 10px; object-fit: cover; }
+    .upload-preview .preview-name { font-size: 0.78rem; color: #6b7280; margin-top: 6px; }
+
+    /* BUTTONS */
+    .btn { padding: 11px 24px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; transition: all 0.2s; }
+    .btn-primary { background: #1e3a8a; color: white; }
+    .btn-primary:hover { background: #162d6e; transform: translateY(-1px); }
+    .btn-gold { background: #d97706; color: white; }
+    .btn-gold:hover { background: #b45309; }
+    .btn-outline { background: transparent; color: #1e3a8a; border: 2px solid #1e3a8a; }
+    .btn-outline:hover { background: #1e3a8a; color: white; }
+    .btn-danger { background: #dc2626; color: white; }
+    .btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      background: #1e3a8a; color: white; padding: 14px 20px;
+      border-radius: 12px; font-size: 0.85rem; font-weight: 500;
+      box-shadow: 0 8px 24px rgba(30,58,138,0.3);
+      transform: translateY(100px); opacity: 0; transition: all 0.3s;
+      max-width: 300px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #059669; }
+    .toast.error { background: #dc2626; }
+
+    /* NEWS LIST */
+    .news-list { display: grid; gap: 12px; }
+    .news-item {
+      background: white; border-radius: 12px; padding: 16px;
+      border: 1px solid #e5e7eb; display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 12px;
+    }
+    .news-item-info h4 { font-size: 0.9rem; color: #1e3a8a; margin-bottom: 4px; }
+    .news-item-info p { font-size: 0.78rem; color: #888; }
+    .news-badge { font-size: 0.7rem; font-weight: 600; padding: 3px 8px; border-radius: 20px; background: #f0f4ff; color: #1e3a8a; margin-bottom: 4px; display: inline-block; }
+
+    /* GALLERY GRID */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .gallery-thumb {
+      background: #f0f4ff; border-radius: 12px; overflow: hidden;
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      position: relative; border: 2px solid #e5e7eb;
+    }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-thumb .thumb-overlay {
+      position: absolute; inset: 0; background: rgba(30,58,138,0.7);
+      display: none; align-items: center; justify-content: center; gap: 8px;
+    }
+    .gallery-thumb:hover .thumb-overlay { display: flex; }
+    .thumb-placeholder { font-size: 2.5rem; color: #c7d2fe; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat-card {
+      background: white; border-radius: 14px; padding: 18px;
+      text-align: center; border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.06);
+    }
+    .stat-card .stat-num { font-size: 1.8rem; font-weight: 700; color: #1e3a8a; }
+    .stat-card .stat-label { font-size: 0.75rem; color: #888; margin-top: 2px; }
+
+    /* INSTRUCTIONS */
+    .info-box {
+      background: #fef9ec; border: 1px solid #fde68a; border-radius: 12px;
+      padding: 14px 16px; font-size: 0.82rem; color: #92400e; margin-bottom: 20px;
+    }
+    .info-box strong { color: #d97706; }
+
+    @media (max-width: 640px) {
+      .sidebar { width: 60px; }
+      .sidebar-item span.label { display: none; }
+      .sidebar-item { padding: 12px; justify-content: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LOGIN SCREEN -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">KP</div>
+    <h2>KP International School</h2>
+    <p>Admin Panel — Staff Login</p>
+    <input type="password" id="passwordInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" />
+    <button onclick="doLogin()">🔐 Login to Admin</button>
+    <p class="login-error" id="loginError">❌ Wrong password. Please try again.</p>
+    <p style="margin-top:16px;font-size:0.72rem;color:#bbb;">KP International School, Morija, Chomu, Jaipur</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ADMIN PANEL -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="adminPanel">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">KP</div>
+      <div>
+        <div class="topbar h1" style="font-size:0.95rem;font-weight:600;">KPIS Admin Panel</div>
+        <div class="topbar-sub">KP International School</div>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">⬅ Logout</button>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-item active" onclick="showSection('dashboard')">
+        <span class="icon">📊</span><span class="label">Dashboard</span>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-item" onclick="showSection('gallery')">
+        <span class="icon">📸</span><span class="label">Photo Gallery</span>
+      </div>
+      <div class="sidebar-item" onclick="showSection('news')">
+        <span class="icon">📰</span><span class="label">News & Events</span>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-item" onclick="showSection('contact')">
+        <span class="icon">📞</span><span class="label">Contact Info</span>
+      </div>
+      <div class="sidebar-item" onclick="showSection('about')">
+        <span class="icon">🏫</span><span class="label">About Text</span>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="section active" id="section-dashboard">
+        <div class="section-title">Welcome Back! 👋</div>
+        <div class="section-sub">KP International School Admin Panel</div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="statNews">0</div>
+            <div class="stat-label">News Posts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="statGallery">0</div>
+            <div class="stat-label">Gallery Photos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Nur–10</div>
+            <div class="stat-label">Classes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">RBSE</div>
+            <div class="stat-label">Board</div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <strong>ℹ️ How this panel works:</strong><br/>
+          All changes you make here are saved locally in your browser. To publish them to the live website, you will need to copy the generated content into your GitHub files. Future versions can auto-publish.
+        </div>
+
+        <div class="form-card">
+          <h3>🚀 Quick Actions</h3>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="showSection('gallery')">📸 Upload Photo</button>
+            <button class="btn btn-gold" onclick="showSection('news')">📰 Add News Post</button>
+            <button class="btn btn-outline" onclick="showSection('contact')">📞 Edit Contact</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GALLERY ── -->
+      <div class="section" id="section-gallery">
+        <div class="section-title">📸 Photo Gallery</div>
+        <div class="section-sub">Upload and manage school photos</div>
+
+        <div class="form-card">
+          <h3>Upload New Photo</h3>
+          <div class="form-group">
+            <label>Photo Title / Caption *</label>
+            <input type="text" id="photoTitle" placeholder="e.g. Annual Sports Day 2025" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category *</label>
+              <select id="photoCategory">
+                <option>Campus</option>
+                <option>Events</option>
+                <option>Sports</option>
+                <option>Academics</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="photoDate" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description (optional)</label>
+            <input type="text" id="photoDesc" placeholder="Brief description of the photo" />
+          </div>
+          <div class="form-group">
+            <label>Photo *</label>
+            <div class="upload-area" id="photoUploadArea" onclick="document.getElementById('photoFile').click()" ondragover="dragOver(event,'photoUploadArea')" ondragleave="dragLeave(event,'photoUploadArea')" ondrop="dropFile(event,'photoFile','photoPreview')">
+              <div class="upload-icon">📷</div>
+              <p><strong>Tap to select photo</strong> or drag & drop here</p>
+              <p style="font-size:0.75rem;margin-top:4px;color:#aaa;">JPG, PNG supported · Any size</p>
+            </div>
+            <input type="file" id="photoFile" accept="image/*" style="display:none" onchange="previewFile(this,'photoPreview')" />
+            <div class="upload-preview" id="photoPreview">
+              <img id="photoPreviewImg" src="" alt="Preview" />
+              <div class="preview-name" id="photoPreviewName"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="photoFeatured" style="width:auto;margin-right:6px;" />
+              Show on Homepage Gallery Teaser
+            </label>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="savePhoto()">💾 Save Photo</button>
+            <button class="btn btn-outline" onclick="clearPhotoForm()">✕ Clear</button>
+          </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="form-card">
+          <h3>Saved Photos (<span id="galleryCount">0</span>)</h3>
+          <div class="gallery-grid" id="galleryGrid">
+            <div style="color:#aaa;font-size:0.82rem;text-align:center;padding:20px;grid-column:1/-1;">No photos yet. Upload your first photo above!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NEWS ── -->
+      <div class="section" id="section-news">
+        <div class="section-title">📰 News & Events</div>
+        <div class="section-sub">Create and manage news posts and announcements</div>
+
+        <div class="form-card">
+          <h3>Add New Post</h3>
+          <div class="form-group">
+            <label>Title *</label>
+            <input type="text" id="newsTitle" placeholder="e.g. Annual Sports Day 2025 – A Grand Celebration" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date *</label>
+              <input type="date" id="newsDate" />
+            </div>
+            <div class="form-group">
+              <label>Category *</label>
+              <select id="newsCategory">
+                <option>Announcement</option>
+                <option>Academic</option>
+                <option>Sports</option>
+                <option>Cultural Event</option>
+                <option>Environment</option>
+                <option>General</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Short Summary *</label>
+            <input type="text" id="newsSummary" placeholder="A brief 1–2 sentence summary shown on the news listing page" />
+          </div>
+          <div class="form-group">
+            <label>Full Article Content *</label>
+            <textarea id="newsBody" placeholder="Write the full news article here..." rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Featured Image (optional)</label>
+            <div class="upload-area" id="newsUploadArea" onclick="document.getElementById('newsFile').click()" ondragover="dragOver(event,'newsUploadArea')" ondragleave="dragLeave(event,'newsUploadArea')" ondrop="dropFile(event,'newsFile','newsPreview')">
+              <div class="upload-icon">🖼️</div>
+              <p><strong>Tap to add image</strong> or drag & drop</p>
+            </div>
+            <input type="file" id="newsFile" accept="image/*" style="display:none" onchange="previewFile(this,'newsPreview')" />
+            <div class="upload-preview" id="newsPreview">
+              <img id="newsPreviewImg" src="" alt="Preview" />
+              <div class="preview-name" id="newsPreviewName"></div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-gold" onclick="saveNews()">📢 Publish Post</button>
+            <button class="btn btn-outline" onclick="clearNewsForm()">✕ Clear</button>
+          </div>
+        </div>
+
+        <!-- News List -->
+        <div class="form-card">
+          <h3>All Posts (<span id="newsCount">0</span>)</h3>
+          <div class="news-list" id="newsList">
+            <div style="color:#aaa;font-size:0.82rem;text-align:center;padding:20px;">No posts yet. Add your first news post above!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CONTACT ── -->
+      <div class="section" id="section-contact">
+        <div class="section-title">📞 Contact Information</div>
+        <div class="section-sub">Update school contact details shown across the website</div>
+
+        <div class="form-card">
+          <h3>School Contact Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="contactPhone" value="+91 94148 50460" />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="contactEmail" value="kpinternational2015@gmail.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Full Address</label>
+            <textarea id="contactAddress" rows="3">Karni Vihar, Chitwari Road, Morija Village, Chomu Tehsil, Jaipur District, Rajasthan – 303805</textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>School Hours</label>
+              <input type="text" id="contactSchoolHours" value="8:00 AM – 2:00 PM" />
+            </div>
+            <div class="form-group">
+              <label>Office Hours</label>
+              <input type="text" id="contactOfficeHours" value="8:00 AM – 4:00 PM" />
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="saveContact()">💾 Save Changes</button>
+          </div>
+        </div>
+
+        <!-- Announcement Banner -->
+        <div class="form-card">
+          <h3>📢 Announcement Banner</h3>
+          <div class="form-group">
+            <label>Banner Text (shown at top of News page)</label>
+            <input type="text" id="bannerText" placeholder="e.g. Admissions open for 2025–26. Call +91 94148 50460" value="Admissions for Academic Year 2025–26 are now open. Contact school at +91 94148 50460 for details." />
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-gold" onclick="saveBanner()">💾 Save Banner</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ABOUT ── -->
+      <div class="section" id="section-about">
+        <div class="section-title">🏫 About Page</div>
+        <div class="section-sub">Update the About Us page content</div>
+
+        <div class="form-card">
+          <h3>School Description</h3>
+          <div class="form-group">
+            <label>Main Intro Paragraph</label>
+            <textarea id="aboutIntro" rows="5" placeholder="Write the main introduction about the school...">KP International School (KPIS) has been a cornerstone of quality education in the Chomu region since 2015. Situated amidst the serene landscape of Morija Village, just 4 km from Chomu town and 35 km north of Jaipur city, our school offers a nurturing environment where every student can reach their full potential.</textarea>
+          </div>
+          <div class="form-group">
+            <label>Vision Statement</label>
+            <textarea id="aboutVision" rows="3">To be the leading centre of holistic education in the Chomu region — nurturing globally aware, ethically grounded, and intellectually empowered citizens.</textarea>
+          </div>
+          <div class="form-group">
+            <label>Mission Statement</label>
+            <textarea id="aboutMission" rows="3">To provide affordable, high-quality English-medium education rooted in RBSE standards, fostering critical thinking, creativity, and character.</textarea>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="saveAbout()">💾 Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /admin-body -->
+</div><!-- /adminPanel -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// PASSWORD — Change this to your desired password
+const ADMIN_PASSWORD = 'kpis2015admin';
+// ═══════════════════════════════════════════════
+
+// State
+let galleryItems = JSON.parse(localStorage.getItem('kpis_gallery') || '[]');
+let newsItems = JSON.parse(localStorage.getItem('kpis_news') || '[]');
+
+// ── AUTH ──
+function doLogin() {
+  const pw = document.getElementById('passwordInput').value;
+  if (pw === ADMIN_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    updateStats();
+    renderGallery();
+    renderNews();
+    // set today's date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('photoDate').value = today;
+    document.getElementById('newsDate').value = today;
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('passwordInput').focus();
+  }
+}
+function doLogout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('passwordInput').value = '';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+// ── NAVIGATION ──
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    if (item.getAttribute('onclick').includes("'" + name + "'")) item.classList.add('active');
+  });
+}
+
+// ── TOAST ──
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => { t.className = 'toast'; }, 3500);
+}
+
+// ── FILE UPLOAD / PREVIEW ──
+function previewFile(input, previewId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const preview = document.getElementById(previewId);
+    preview.style.display = 'block';
+    document.getElementById(previewId + 'Img').src = e.target.result;
+    document.getElementById(previewId + 'Name').textContent = file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+  };
+  reader.readAsDataURL(file);
+}
+
+function dragOver(e, areaId) {
+  e.preventDefault();
+  document.getElementById(areaId).classList.add('drag-over');
+}
+function dragLeave(e, areaId) {
+  document.getElementById(areaId).classList.remove('drag-over');
+}
+function dropFile(e, inputId, previewId) {
+  e.preventDefault();
+  const areaId = e.currentTarget.id;
+  document.getElementById(areaId).classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (!file || !file.type.startsWith('image/')) { showToast('Please drop an image file', 'error'); return; }
+  const input = document.getElementById(inputId);
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  input.files = dt.files;
+  previewFile(input, previewId);
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── GALLERY ──
+async function savePhoto() {
+  const title = document.getElementById('photoTitle').value.trim();
+  const category = document.getElementById('photoCategory').value;
+  const date = document.getElementById('photoDate').value;
+  const desc = document.getElementById('photoDesc').value.trim();
+  const featured = document.getElementById('photoFeatured').checked;
+  const fileInput = document.getElementById('photoFile');
+
+  if (!title) { showToast('Please enter a photo title', 'error'); return; }
+  if (!fileInput.files[0]) { showToast('Please select a photo to upload', 'error'); return; }
+
+  const imgData = await readFileAsBase64(fileInput.files[0]);
+  const item = { id: Date.now(), title, category, date, desc, featured, img: imgData, name: fileInput.files[0].name };
+  galleryItems.unshift(item);
+  localStorage.setItem('kpis_gallery', JSON.stringify(galleryItems));
+  renderGallery();
+  updateStats();
+  clearPhotoForm();
+  showToast('✅ Photo saved successfully!');
+}
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  document.getElementById('galleryCount').textContent = galleryItems.length;
+  if (galleryItems.length === 0) {
+    grid.innerHTML = '<div style="color:#aaa;font-size:0.82rem;text-align:center;padding:20px;grid-column:1/-1;">No photos yet. Upload your first photo above!</div>';
+    return;
+  }
+  grid.innerHTML = galleryItems.map((item, i) => `
+    <div class="gallery-thumb">
+      <img src="${item.img}" alt="${item.title}" />
+      <div class="thumb-overlay">
+        <button class="btn btn-sm btn-danger" onclick="deletePhoto(${i})">🗑</button>
+      </div>
+    </div>
+    <div style="font-size:0.72rem;color:#555;text-align:center;padding:4px 4px 8px;">${item.title}<br/><span style="color:#d97706">${item.category}</span></div>
+  `).join('');
+}
+
+function deletePhoto(i) {
+  if (!confirm('Delete this photo?')) return;
+  galleryItems.splice(i, 1);
+  localStorage.setItem('kpis_gallery', JSON.stringify(galleryItems));
+  renderGallery();
+  updateStats();
+  showToast('Photo deleted');
+}
+
+function clearPhotoForm() {
+  document.getElementById('photoTitle').value = '';
+  document.getElementById('photoDesc').value = '';
+  document.getElementById('photoFeatured').checked = false;
+  document.getElementById('photoFile').value = '';
+  document.getElementById('photoPreview').style.display = 'none';
+}
+
+// ── NEWS ──
+async function saveNews() {
+  const title = document.getElementById('newsTitle').value.trim();
+  const date = document.getElementById('newsDate').value;
+  const category = document.getElementById('newsCategory').value;
+  const summary = document.getElementById('newsSummary').value.trim();
+  const body = document.getElementById('newsBody').value.trim();
+
+  if (!title || !summary || !body) { showToast('Please fill in all required fields', 'error'); return; }
+
+  let img = null;
+  const fileInput = document.getElementById('newsFile');
+  if (fileInput.files[0]) img = await readFileAsBase64(fileInput.files[0]);
+
+  const item = { id: Date.now(), title, date, category, summary, body, img };
+  newsItems.unshift(item);
+  localStorage.setItem('kpis_news', JSON.stringify(newsItems));
+  renderNews();
+  updateStats();
+  clearNewsForm();
+  showToast('✅ News post published!');
+}
+
+function renderNews() {
+  const list = document.getElementById('newsList');
+  document.getElementById('newsCount').textContent = newsItems.length;
+  if (newsItems.length === 0) {
+    list.innerHTML = '<div style="color:#aaa;font-size:0.82rem;text-align:center;padding:20px;">No posts yet. Add your first news post above!</div>';
+    return;
+  }
+  list.innerHTML = newsItems.map((item, i) => `
+    <div class="news-item">
+      <div class="news-item-info">
+        <span class="news-badge">${item.category}</span>
+        <h4>${item.title}</h4>
+        <p>${item.date} &nbsp;·&nbsp; ${item.summary.substring(0, 80)}...</p>
+      </div>
+      <button class="btn btn-sm btn-danger" onclick="deleteNews(${i})">🗑</button>
+    </div>
+  `).join('');
+}
+
+function deleteNews(i) {
+  if (!confirm('Delete this news post?')) return;
+  newsItems.splice(i, 1);
+  localStorage.setItem('kpis_news', JSON.stringify(newsItems));
+  renderNews();
+  updateStats();
+  showToast('Post deleted');
+}
+
+function clearNewsForm() {
+  ['newsTitle','newsSummary','newsBody'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('newsFile').value = '';
+  document.getElementById('newsPreview').style.display = 'none';
+  document.getElementById('newsDate').value = new Date().toISOString().split('T')[0];
+}
+
+// ── CONTACT ──
+function saveContact() {
+  const data = {
+    phone: document.getElementById('contactPhone').value,
+    email: document.getElementById('contactEmail').value,
+    address: document.getElementById('contactAddress').value,
+    schoolHours: document.getElementById('contactSchoolHours').value,
+    officeHours: document.getElementById('contactOfficeHours').value,
+  };
+  localStorage.setItem('kpis_contact', JSON.stringify(data));
+  showToast('✅ Contact info saved!');
+}
+
+function saveBanner() {
+  localStorage.setItem('kpis_banner', document.getElementById('bannerText').value);
+  showToast('✅ Banner text saved!');
+}
+
+// ── ABOUT ──
+function saveAbout() {
+  const data = {
+    intro: document.getElementById('aboutIntro').value,
+    vision: document.getElementById('aboutVision').value,
+    mission: document.getElementById('aboutMission').value,
+  };
+  localStorage.setItem('kpis_about', JSON.stringify(data));
+  showToast('✅ About page content saved!');
+}
+
+// ── STATS ──
+function updateStats() {
+  document.getElementById('statGallery').textContent = galleryItems.length;
+  document.getElementById('statNews').textContent = newsItems.length;
+}
+
+// Load saved data on start
+window.addEventListener('load', () => {
+  const contact = JSON.parse(localStorage.getItem('kpis_contact') || '{}');
+  if (contact.phone) document.getElementById('contactPhone').value = contact.phone;
+  if (contact.email) document.getElementById('contactEmail').value = contact.email;
+  if (contact.address) document.getElementById('contactAddress').value = contact.address;
+  if (contact.schoolHours) document.getElementById('contactSchoolHours').value = contact.schoolHours;
+  if (contact.officeHours) document.getElementById('contactOfficeHours').value = contact.officeHours;
+  const about = JSON.parse(localStorage.getItem('kpis_about') || '{}');
+  if (about.intro) document.getElementById('aboutIntro').value = about.intro;
+  if (about.vision) document.getElementById('aboutVision').value = about.vision;
+  if (about.mission) document.getElementById('aboutMission').value = about.mission;
+  const banner = localStorage.getItem('kpis_banner');
+  if (banner) document.getElementById('bannerText').value = banner;
+});
+</script>
+</body>
+</html>
