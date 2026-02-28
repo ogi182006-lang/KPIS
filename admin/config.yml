@@ -4,7 +4,7 @@
 
 backend:
   name: github
-  repo: ogi182006/Trendyclothes-new
+  repo: ogi182006/KPIS
   branch: main
   base_url: https://api.decapcms.org
 
