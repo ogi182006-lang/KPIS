@@ -1,0 +1,121 @@
+# Decap CMS Configuration – KP International School
+# Backend: GitHub OAuth (works on Vercel)
+# Repo: ogi182006/Trendyclothes-new | Branch: main
+
+backend:
+  name: github
+  repo: ogi182006/Trendyclothes-new
+  branch: main
+  base_url: https://api.decapcms.org
+
+# Media / image uploads go to this folder in your repo
+media_folder: "uploads"
+public_folder: "/uploads"
+
+# ============================================================
+# COLLECTIONS
+# ============================================================
+
+collections:
+
+  # ----------------------------------------------------------
+  # 1. PAGES – Edit static page text content
+  # ----------------------------------------------------------
+  - name: "pages"
+    label: "Pages"
+    files:
+
+      - name: "home"
+        label: "🏠 Home Page"
+        file: "_data/pages/home.json"
+        fields:
+          - { label: "Hero Title", name: "hero_title", widget: "string", default: "KP International School" }
+          - { label: "Hero Tagline", name: "hero_tagline", widget: "string", default: "Empowering Minds, Building Futures" }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text" }
+          - { label: "Welcome Heading", name: "welcome_heading", widget: "string" }
+          - { label: "Welcome Text", name: "welcome_text", widget: "markdown" }
+
+      - name: "about"
+        label: "🏫 About Page"
+        file: "_data/pages/about.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string" }
+          - { label: "Intro Text", name: "intro", widget: "markdown" }
+          - { label: "Vision Statement", name: "vision", widget: "text" }
+          - { label: "Mission Statement", name: "mission", widget: "text" }
+          - label: "Core Values"
+            name: "values"
+            widget: "list"
+            field: { label: "Value", name: "value", widget: "string" }
+          - label: "History Timeline"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+      - name: "contact"
+        label: "📞 Contact Details"
+        file: "_data/pages/contact.json"
+        fields:
+          - { label: "Phone Number", name: "phone", widget: "string", default: "+91 94148 50460" }
+          - { label: "Email Address", name: "email", widget: "string", default: "kpinternational2015@gmail.com" }
+          - { label: "Full Address", name: "address", widget: "text" }
+          - { label: "School Hours", name: "school_hours", widget: "string", default: "8:00 AM – 2:00 PM" }
+          - { label: "Office Hours", name: "office_hours", widget: "string", default: "8:00 AM – 4:00 PM" }
+
+  # ----------------------------------------------------------
+  # 2. NEWS POSTS
+  # ----------------------------------------------------------
+  - name: "news"
+    label: "📰 News & Events"
+    folder: "_data/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} – {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Publish Date", name: "date", widget: "datetime", required: true }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Announcement", value: "announcement" }
+          - { label: "Academic", value: "academic" }
+          - { label: "Sports", value: "sports" }
+          - { label: "Cultural Event", value: "cultural" }
+          - { label: "Environment", value: "environment" }
+          - { label: "General", value: "general" }
+        default: "announcement"
+      - { label: "Short Summary", name: "summary", widget: "text" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Full Article Content", name: "body", widget: "markdown" }
+      - { label: "Published", name: "published", widget: "boolean", default: true }
+
+  # ----------------------------------------------------------
+  # 3. GALLERY
+  # ----------------------------------------------------------
+  - name: "gallery"
+    label: "📸 Photo Gallery"
+    folder: "_data/gallery"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} – {{category}}"
+    fields:
+      - { label: "Photo Title / Caption", name: "title", widget: "string", required: true }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Campus", value: "campus" }
+          - { label: "Events", value: "events" }
+          - { label: "Sports", value: "sports" }
+          - { label: "Academics", value: "academics" }
+          - { label: "Other", value: "other" }
+        default: "events"
+      - { label: "Upload Photo", name: "image", widget: "image", required: true }
+      - { label: "Description (optional)", name: "description", widget: "text", required: false }
+      - { label: "Date Taken", name: "date", widget: "date", required: false }
+      - { label: "Show on Homepage", name: "featured", widget: "boolean", default: false }
+      - { label: "Visible in Gallery", name: "published", widget: "boolean", default: true }
